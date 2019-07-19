@@ -44,8 +44,8 @@
     </v-layout>
     <v-layout v-if="product_data.status === 'hidden' " class="justify-end align-center">
         <span><span class="info_title">{{product_data.title}}</span> был удален из заказа.</span>
-        <v-btn @click="returnProduct">Вернуть</v-btn>
-        <v-btn @click="deleteProduct">X</v-btn>
+        <v-btn @click="returnProduct" color="success">Вернуть</v-btn>
+        <v-btn @click="deleteProduct" color="error">Удалить</v-btn>
     </v-layout>
   </v-layout>
 </template>
