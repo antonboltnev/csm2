@@ -1,17 +1,23 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app id="inspire">
+    <v-container>
+      <v-layout wrap column>
+        <csm-main-table/>
+        <csm-order-edit-page/>
+      </v-layout>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import csmMainTable from './components/csm-main-table'
+import csmOrderEditPage from './components/order-edit-page/csm-order-edit-page'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+      csmMainTable,
+      csmOrderEditPage
   }
 }
 </script>

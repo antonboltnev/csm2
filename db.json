@@ -1,0 +1,7 @@
+{
+  "products": [
+    { "article": 123, "title": "Product 1", "price": 100, "size": "M", "color": "red", "qty": "1", "price": "200" },
+    { "article": 321, "title": "Product 2", "price": 200, "size": "L", "color": "green", "qty": "5", "price": "400" },
+    { "article": 435, "title": "Product 3", "price": 300, "size": "XL", "color": "blue", "qty": "3", "price": "300" }
+  ]
+}
