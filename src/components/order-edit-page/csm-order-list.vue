@@ -54,9 +54,6 @@
                 this.$store.dispatch('deleteSelectedProducts');
                 this.$store.dispatch('clearSelection');
             },
-            deleteCurrentProduct(product) {
-
-            },
             clearSelection() {
                 this.clearAllSelections = true;
                 this.$store.dispatch('clearSelection');

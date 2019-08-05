@@ -3,13 +3,15 @@
     <v-select
             v-model="selectedItems"
             :items="select_data"
-            :menu-props="{ maxHeight: '400' }"
+            :menu-props="{maxHeight: '400'}"
             :label="select_label"
             multiple
+            item-text="text"
+            item-value="value"
     >
       <template v-slot:selection="{ item, index }">
         <v-chip v-if="index === 0">
-          <span>{{ item }}</span>
+          <span>{{ item.text }}</span>
         </v-chip>
         <span
                 v-if="index === 1"

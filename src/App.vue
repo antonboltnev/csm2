@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-container>
       <v-layout wrap column>
-        <csm-main-table/>
+        <!--<csm-main-table/>-->
         <csm-order-edit-page/>
       </v-layout>
     </v-container>

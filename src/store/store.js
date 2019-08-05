@@ -45,7 +45,6 @@ let store = new Vuex.Store({
                 state.orderList[0].map(function (e) {
                     if (e.article === state.selectedProducts[i].article) {
                         Vue.set(state.orderList[0][state.orderList[0].indexOf(e)], 'status', 'hidden');
-                        console.log(state.orderList[0][state.orderList[0].indexOf(e)])
                     }
                     return false;
                 });
@@ -68,7 +67,6 @@ let store = new Vuex.Store({
                 state.orderList[0].map(function (e) {
                     if (e.article === state.orderList[0][product].article) {
                         Vue.set(state.orderList[0][state.orderList[0].indexOf(e)], 'status', '');
-                        console.log(state.orderList[0][state.orderList[0].indexOf(e)])
                     }
                     return false;
                 });
