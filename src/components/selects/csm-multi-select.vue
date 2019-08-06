@@ -8,6 +8,7 @@
             multiple
             item-text="text"
             item-value="value"
+            @change="selectChange"
     >
       <template v-slot:selection="{ item, index }">
         <v-chip v-if="index === 0">
@@ -43,8 +44,12 @@
             return {
                 selectedItems: null,
             }
+        },
+        methods: {
+            selectChange() {
+                this.$emit('selectChange', this.selectedItems);
+            }
         }
-
     }
 </script>
 

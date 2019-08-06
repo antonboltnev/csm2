@@ -47,22 +47,26 @@
                   <p class="text-value">3 шт</p>
                 </li>
                 <li>
-                  <p class="left-text">Скидка</p>
-                  <div class="text-value">
-                    <csm-multi-select
-                            :select_data="discounts"
-                            select_label="Выбрать"
-
-                    />
-                  </div>
+                  <v-flex>
+                    <p class="left-text">Скидка</p>
+                  </v-flex>
+                  <v-flex xs5>
+                    <div class="text-value">
+                      <csm-multi-select
+                              :select_data="discounts"
+                              select_label="Выбрать"
+                              @selectChange="discountCounter"
+                      />
+                    </div>
+                  </v-flex>
                 </li>
                 <li>
-                  <p class="info-text text-green">Сумма скидки</p>
-                  <p class="text-value"> руб</p>
+                  <p class="info-text">Сумма скидки</p>
+                  <p class="text-value">- {{discountsSumm}} %</p>
                 </li>
                 <li>
-                  <p class="info-text text-green">Итого со скидкой</p>
-                  <p class="info-value"> руб</p>
+                  <p class="info-text display-1">Итого со скидкой</p>
+                  <p class="info-value font-weight-bold display-1 green--text">{{totalPriceWithDiscounts}} руб</p>
                 </li>
               </ul>
             </v-card-text>
@@ -70,18 +74,25 @@
               <v-spacer></v-spacer>
 
               <v-btn
-                      color="green darken-1"
+                      color="darken-1"
                       flat="flat"
                       @click="dialog = false"
               >
-                Закрыть
+                Применить
+              </v-btn>
+              <v-btn
+                      color="red"
+                      flat="flat"
+                      @click="clearDiscounts"
+              >
+                Отменить
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-flex>
       <v-layout column align-center>
-        <span class="info_price">${{product_data.price*product_data.qty}}</span>
+        <span class="info_price">${{product_data.price*product_data.qty}}<span class="price_discount font-weight-light green--text" v-if="discountsSumm > 0"> - {{discountsSumm}} %</span></span>
         <span>
         <v-btn
                 :class="{ 'hidden' : !isProductSelected }"
@@ -149,17 +160,30 @@
                 discounts: [
                     {text: 'За лояльность', value: 10},
                     {text: 'За вредность', value: 15}
-                ]
+                ],
+                discountsSumm: 0
             }
         },
         computed: {
-           discountData() {
-               for (let discount of this.discounts) {
-                   return discount;
-               }
-           }
+            totalPriceWithDiscounts() {
+                return  (this.product_data.price * this.product_data.qty) - ((this.product_data.price * this.product_data.qty * this.discountsSumm) / 100);
+            }
         },
         methods: {
+            discountCounter(discounts) {
+                if (discounts.length) {
+                    let result = discounts.reduce(function (sum, el) {
+                        return sum + el;
+                    });
+                    return this.discountsSumm = result;
+                } else {
+                    this.discountsSumm = 0
+                }
+            },
+            clearDiscounts() {
+                this.discountsSumm = 0;
+                this.dialog = false;
+            },
             productSelection() {
                     this.$emit('productSelection', this.product_data.article, this.isProductSelected);
             },
