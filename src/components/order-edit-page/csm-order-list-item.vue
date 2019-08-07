@@ -66,6 +66,7 @@
                   <v-flex xs6>
                     <div class="text-value">
                       <csm-multi-select
+                              ref="selectedItems"
                               :select_data="discounts"
                               select_label="Выбрать"
                               @selectChange="discountCounter"
@@ -181,6 +182,7 @@
             },
             clearDiscounts() {
                 this.discountsSumm = 0;
+                this.$refs.selectedItems.clearSelect();
                 this.dialog = false;
             },
             productSelection() {

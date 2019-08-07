@@ -49,6 +49,9 @@
         methods: {
             selectChange() {
                 this.$emit('selectChange', this.selectedItems);
+            },
+            clearSelect() {
+                this.selectedItems = null;
             }
         }
     }
