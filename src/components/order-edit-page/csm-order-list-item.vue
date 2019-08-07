@@ -75,7 +75,19 @@
                   </v-flex>
                 </li>
                 <li>
-                  <p class="info-text">Сумма скидки</p>
+                  <v-flex>
+                    <p class="left-text">Ручная корректировка</p>
+                  </v-flex>
+                  <v-flex xs6>
+                    <div class="text-value">
+                      <csm-text-field
+                              @setDiscount="handCorrection"
+                      />
+                    </div>
+                  </v-flex>
+                </li>
+                <li>
+                  <p class="info-text">Суммарная скидка</p>
                   <p class="text-value">- {{discountsSumm}} %</p>
                 </li>
                 <li>
@@ -127,11 +139,13 @@
 <script>
 
     import csmMultiSelect from '../../components/selects/csm-multi-select'
+    import csmTextField from '../../components/text-fields/csm-text-field'
 
     export default {
         name: "csm-order-list-item",
         components: {
-            csmMultiSelect
+            csmMultiSelect,
+            csmTextField
         },
         props: {
             product_data: {
@@ -161,7 +175,8 @@
                     {text: 'За лояльность, 10%', value: 10},
                     {text: 'За вредность, 15%', value: 15}
                 ],
-                discountsSumm: 0
+                discountsSumm: 0,
+                correction: 0
             }
         },
         computed: {
@@ -170,12 +185,15 @@
             }
         },
         methods: {
+            handCorrection(value) {
+               this.correction = Number(value);
+            },
             discountCounter(discounts) {
                 if (discounts.length) {
                     let result = discounts.reduce(function (sum, el) {
                         return sum + el;
                     });
-                    return this.discountsSumm = result;
+                    return this.discountsSumm = result + this.correction;
                 } else {
                     this.discountsSumm = 0
                 }
