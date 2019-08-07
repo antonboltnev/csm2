@@ -1,7 +1,7 @@
 <template>
   <v-layout>
-    <v-layout class='csm-order-list-item justify-space-around align-center' v-if="product_data.status !== 'hidden' ">
-      <v-flex xs1>
+    <v-layout class='csm-order-list-item justify-space-around align-start' v-if="product_data.status !== 'hidden' ">
+      <v-flex>
         <v-checkbox
                 v-model="isProductSelected"
                 @change="productSelection"
@@ -9,26 +9,39 @@
         ></v-checkbox>
       </v-flex>
       <v-flex class="list-item_img" xs2>
-        <!--<img src="" alt="Product Img 100x120">-->
-        <v-icon color="#000">photo</v-icon>
+        <img src="https://cdn.sptmr.ru/upload/resize_cache/iblock/c97/176_188_1/12726230299.jpg" alt="Product Img 100x120">
       </v-flex>
-      <v-flex class="list-item_info" column xs5>
+      <v-flex class="list-item_info" column xs3>
         <span class="info_title">{{product_data.title}}</span>
         <span>Артикул: {{product_data.article}}</span>
         <span>Цвет: <span class="underlined">{{product_data.color}}</span></span>
         <span>Размер: <span class="underlined">{{product_data.size}}</span></span>
         <span>Цена за ед: ${{product_data.price}}</span>
       </v-flex>
+      <v-flex>
+        <span>
+        <v-btn
+                text
+                @click="decrementQty"
+        ><v-icon dark>remove</v-icon>
+      </v-btn>
+        {{product_data.qty}} шт
+        <v-btn
+                text
+                @click="incrementQty"
+        ><v-icon dark>add</v-icon>
+        </v-btn>
+      </span>
+      </v-flex>
       <v-flex
               class="list-item_discount"
               xs2
-              :class="{ 'hidden' : !isProductSelected }"
       >
         <v-btn
                 color="#fff"
                 @click.stop="dialog = true"
         >
-          скидки
+          <span class="headline">%</span>
         </v-btn>
         <v-dialog
                 v-model="dialog"
@@ -50,7 +63,7 @@
                   <v-flex>
                     <p class="left-text">Скидка</p>
                   </v-flex>
-                  <v-flex xs5>
+                  <v-flex xs6>
                     <div class="text-value">
                       <csm-multi-select
                               :select_data="discounts"
@@ -75,14 +88,14 @@
 
               <v-btn
                       color="darken-1"
-                      flat="flat"
+                      text
                       @click="dialog = false"
               >
                 Применить
               </v-btn>
               <v-btn
                       color="red"
-                      flat="flat"
+                      text
                       @click="clearDiscounts"
               >
                 Отменить
@@ -92,34 +105,20 @@
         </v-dialog>
       </v-flex>
       <v-layout column align-center>
-        <span class="info_price">${{product_data.price*product_data.qty}}<span class="price_discount font-weight-light green--text" v-if="discountsSumm > 0"> - {{discountsSumm}} %</span></span>
-        <span>
-        <v-btn
-                :class="{ 'hidden' : !isProductSelected }"
-                small
-                @click="decrementQty"
-                outline
-                flat
-                fab
-        >-
-      </v-btn>
-        {{product_data.qty}} шт
-        <v-btn
-                :class="{ 'hidden' : !isProductSelected }"
-                small
-                @click="incrementQty"
-                outline
-                flat
-                fab
-        >+
-        </v-btn>
-      </span>
+        <span class="info_price" v-if="discountsSumm > 0">${{totalPriceWithDiscounts}} <span class="green--text body-1">(- {{discountsSumm}} %)</span></span>
+        <span class="info_price" v-else>${{product_data.price*product_data.qty}}</span>
       </v-layout>
     </v-layout>
     <v-layout v-if="product_data.status === 'hidden' " class="justify-end align-center">
+      <v-flex xs4>
         <span><span class="info_title">{{product_data.title}}</span> был удален из заказа.</span>
+      </v-flex>
+      <v-flex xs2>
         <v-btn @click="returnProduct" color="success">Вернуть</v-btn>
+      </v-flex>
+      <v-flex xs2>
         <v-btn @click="deleteProduct" color="error">Удалить</v-btn>
+      </v-flex>
     </v-layout>
   </v-layout>
 </template>
@@ -158,8 +157,8 @@
                 isProductSelected: false,
                 dialog: false,
                 discounts: [
-                    {text: 'За лояльность', value: 10},
-                    {text: 'За вредность', value: 15}
+                    {text: 'За лояльность, 10%', value: 10},
+                    {text: 'За вредность, 15%', value: 15}
                 ],
                 discountsSumm: 0
             }
@@ -213,7 +212,7 @@
 <style>
 
   .csm-order-list-item {
-    border: solid 1px #aeaeae;
+    border: solid 1px #e6e6e6;
     padding: 10px 5px;
     border-left: 0;
     border-right: 0;

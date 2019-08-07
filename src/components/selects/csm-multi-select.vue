@@ -6,6 +6,7 @@
             :menu-props="{maxHeight: '400'}"
             :label="select_label"
             multiple
+            single-line
             item-text="text"
             item-value="value"
             @change="selectChange"

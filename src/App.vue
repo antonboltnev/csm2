@@ -1,21 +1,24 @@
 <template>
   <v-app id="inspire">
-    <v-container>
+    <v-layout>
+      <csm-navigation-drawer/>
       <v-layout wrap column>
         <!--<csm-main-table/>-->
         <csm-order-edit-page/>
       </v-layout>
-    </v-container>
+    </v-layout>
   </v-app>
 </template>
 
 <script>
+import csmNavigationDrawer from './components/csm-navigation-drawer'
 import csmMainTable from './components/csm-main-table'
 import csmOrderEditPage from './components/order-edit-page/csm-order-edit-page'
 
 export default {
   name: 'app',
   components: {
+      csmNavigationDrawer,
       csmMainTable,
       csmOrderEditPage
   }
