@@ -6,8 +6,8 @@
               xs1
       >
         <v-btn
-                color="#fff"
                 @click.stop="dialog = true"
+                :color="applyDiscount ?  'success' : '' "
         >
           <span class="headline">%</span>
         </v-btn>
@@ -158,7 +158,7 @@
                     {text: 'За вредность, 15%', value: 15}
                 ],
                 discountsSumm: 0,
-                correction: 0
+                correction: 0,
             }
         },
         computed: {
@@ -170,6 +170,11 @@
             totalPriceWithDiscounts() {
                 let discnt = (this.line_data.price - this.getAppliedDiscounts) * this.line_data.quantity;
                 return  discnt - ( discnt * (this.discountsSumm + this.correction) ) / 100;
+            },
+            applyDiscount() {
+                if (!this.dialog) {
+                    return (this.discountsSumm || this.correction) !== 0;
+                }
             }
         },
         methods: {

@@ -7,7 +7,7 @@
             single-line
             clearable
             prefix="%"
-            @blur="setDiscountValue"
+            @input="setDiscountValue"
             min="0"
             maxlength="2"
     ></v-text-field>

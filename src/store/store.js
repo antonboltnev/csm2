@@ -43,7 +43,7 @@ let store = new Vuex.Store({
         preDeleteSelectedProducts: (state) => {
             for (let i = 0; i < state.selectedProducts.length; i++) {
                 state.orderList[0].map(function (e) {
-                    if (e.article === state.selectedProducts[i].article) {
+                    if (e.moniker === state.selectedProducts[i].moniker) {
                         Vue.set(state.orderList[0][state.orderList[0].indexOf(e)], 'status', 'hidden');
                     }
                     return false;
@@ -53,7 +53,7 @@ let store = new Vuex.Store({
         deleteSelectedProducts: (state) => {
             for (let i = 0; i < state.selectedProducts.length; i++) {
                 state.orderList[0].map(function (e) {
-                    if (e.article === state.selectedProducts[i].article) {
+                    if (e.moniker === state.selectedProducts[i].moniker) {
                         state.orderList[0].splice(state.orderList[0].indexOf(e), 1);
                     }
                     return false;
