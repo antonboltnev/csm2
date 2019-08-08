@@ -33,7 +33,7 @@
               <span>Скидка &#8381;</span>
             </v-flex>
             <v-flex xs2>
-              <span>Итого</span>
+              <span>Итого &#8381;</span>
             </v-flex>
           </v-layout>
           <v-flex class="lines_item pr-0 pl-0">
@@ -54,11 +54,11 @@
       <v-flex xs4>
         <span><span class="info_title">{{product_data.title}}</span> был удален из заказа.</span>
       </v-flex>
-      <v-flex xs2>
-        <v-btn @click="returnProduct" color="success">Вернуть</v-btn>
+      <v-flex xs2 class="text-right mr-2">
+        <v-btn tile @click="returnProduct" color="success">Вернуть</v-btn>
       </v-flex>
-      <v-flex xs2>
-        <v-btn @click="deleteProduct" color="error">Удалить</v-btn>
+      <v-flex xs1 class="text-right">
+        <v-btn tile @click="deleteProduct" color="error">Удалить</v-btn>
       </v-flex>
     </v-layout>
   </v-layout>
@@ -140,7 +140,7 @@
                 this.dialog = false;
             },
             productSelection() {
-                    this.$emit('productSelection', this.product_data.article, this.isProductSelected);
+                    this.$emit('productSelection', this.product_data.moniker, this.isProductSelected);
             },
             incrementQty(index) {
                 this.product_data.orderLines[index].quantity++;
@@ -173,7 +173,7 @@
 
   .csm-order-list-item {
     border: solid 1px #e6e6e6;
-    padding: 10px 5px;
+    padding: 10px 0;
     border-left: 0;
     border-right: 0;
     margin-top: -1px;

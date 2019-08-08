@@ -19,26 +19,17 @@ let store = new Vuex.Store({
             state.orderList.push(productData);
         },
         productSelection: (state, {selectedProduct, isSelected}) => {
-            let selectedProductIndex = state.orderList[0].map((e) => e.article).indexOf(selectedProduct);
+            let selectedProductIndex = state.orderList[0].map((e) => e.moniker).indexOf(selectedProduct);
             let selectedProductItem = state.orderList[0][selectedProductIndex];
 
             if (isSelected) {
                 state.selectedProducts.push(selectedProductItem);
             } else {
-                state.selectedProducts.splice(state.selectedProducts.map((e) => e.article).indexOf(selectedProduct), 1);
+                state.selectedProducts.splice(state.selectedProducts.map((e) => e.moniker).indexOf(selectedProduct), 1);
             }
         },
         clearSelection: (state) => {
             state.selectedProducts.splice(0, state.selectedProducts.length);
-        },
-        decrementQty: (state, product) => {
-            if (state.orderList[0][product].qty > 1) {
-                state.orderList[0][product].qty--
-            }
-            return false;
-        },
-        incrementQty: (state, product) => {
-            state.orderList[0][product].qty++
         },
         preDeleteSelectedProducts: (state) => {
             for (let i = 0; i < state.selectedProducts.length; i++) {
@@ -65,7 +56,7 @@ let store = new Vuex.Store({
         },
         returnProduct: (state, product) => {
                 state.orderList[0].map(function (e) {
-                    if (e.article === state.orderList[0][product].article) {
+                    if (e.moniker === state.orderList[0][product].moniker) {
                         Vue.set(state.orderList[0][state.orderList[0].indexOf(e)], 'status', '');
                     }
                     return false;
@@ -84,12 +75,6 @@ let store = new Vuex.Store({
         },
         clearSelection({commit}) {
             commit('clearSelection');
-        },
-        decrementQty({commit}, product) {
-            commit('decrementQty', product);
-        },
-        incrementQty({commit}, product) {
-            commit('incrementQty', product);
         },
         preDeleteSelectedProducts({commit}) {
            commit('preDeleteSelectedProducts');

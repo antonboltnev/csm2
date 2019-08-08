@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-md-center">Страница информации о пользователе</h1>
+    <h1 class="text-md-center">Пользователь</h1>
     <v-container>
       <v-layout class="justify-center">
         <v-flex xs2>

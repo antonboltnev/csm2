@@ -1,6 +1,6 @@
 <template>
   <div class='csm-logistic-info'>
-    <h1 class="text-md-center">Страница логистики</h1>
+    <h1 class="text-md-center">Логистика</h1>
   </div>
 </template>
 

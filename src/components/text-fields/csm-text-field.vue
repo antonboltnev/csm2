@@ -6,7 +6,6 @@
             type="tel"
             single-line
             clearable
-            prefix="%"
             @input="setDiscountValue"
             min="0"
             maxlength="2"

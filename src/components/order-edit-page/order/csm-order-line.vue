@@ -31,7 +31,7 @@
                   <v-flex>
                     <p class="left-text">Скидка</p>
                   </v-flex>
-                  <v-flex xs6>
+                  <v-flex xs7>
                     <div class="text-value">
                       <csm-multi-select
                               ref="selectedItems"
@@ -46,7 +46,7 @@
                   <v-flex>
                     <p class="left-text">Ручная корректировка</p>
                   </v-flex>
-                  <v-flex xs6>
+                  <v-flex xs7>
                     <div class="text-value">
                       <csm-text-field
                               ref="value"
@@ -61,7 +61,7 @@
                 </li>
                 <li>
                   <p class="info-text display-1">Итого со скидкой</p>
-                  <p class="info-value font-weight-bold display-1 green--text">{{(totalPriceWithDiscounts).toFixed(0)}} &#8381;</p>
+                  <p class="info-value font-weight-bold display-1 green--text">{{totalPriceWithDiscounts}} &#8381;</p>
                 </li>
               </ul>
             </v-card-text>
@@ -104,14 +104,13 @@
       </span>
       </v-flex>
       <v-flex class="line_price" xs2>
-        <span>{{line_data.price - getAppliedDiscounts}}</span>
+        <span>{{pricePerItem | formattedPrice}}</span>
       </v-flex>
       <v-flex class="line_discount" xs3>
-        <span>{{getAppliedDiscounts + ( ((this.line_data.price - this.getAppliedDiscounts)  * (this.discountsSumm + this.correction) ) / 100)}}</span>
+        <span>{{(getAppliedDiscounts + ( ((this.line_data.price - this.getAppliedDiscounts)  * (this.discountsSumm + this.correction) ) / 100)) | formattedPrice}}</span>
       </v-flex>
       <v-flex xs2>
-        <span v-if="getAppliedDiscounts > 0">{{totalPriceWithDiscounts.toFixed(0)}}</span>
-        <span v-else>{{line_data.price*line_data.quantity}}</span>
+        <span>{{totalPriceWithDiscounts | formattedPrice}}</span>
       </v-flex>
       <v-flex class="line_remove" xs1>
         <v-btn
@@ -161,15 +160,25 @@
                 correction: 0,
             }
         },
+        filters: {
+            formattedPrice: function (value) {
+                let formattedPrice = new Intl.NumberFormat("en-US",
+                        { minimumFractionDigits: 0 });
+                return formattedPrice.format(value);
+            }
+        },
         computed: {
             getAppliedDiscounts() {
                for (let item of this.line_data.appliedDiscounts) {
                        return item.summa;
                }
             },
+            pricePerItem() {
+               return this.line_data.price - this.getAppliedDiscounts;
+            },
             totalPriceWithDiscounts() {
                 let discnt = (this.line_data.price - this.getAppliedDiscounts) * this.line_data.quantity;
-                return  discnt - ( discnt * (this.discountsSumm + this.correction) ) / 100;
+                return (discnt - ( discnt * (this.discountsSumm + this.correction) ) / 100).toFixed(1);
             },
             applyDiscount() {
                 if (!this.dialog) {

@@ -3,11 +3,11 @@
     <v-layout
             class="align-center justify-end"
             :class="{ 'hidden' : !this.$store.state.selectedProducts.length > 0 }" >
-      <v-flex xs2 text-right>
-        <v-btn tile @click="preDeleteProduct" color="error">Удалить выбранное</v-btn>
+      <v-flex xs2 text-right class="mr-2">
+        <v-btn tile @click="preDeleteProduct" color="error body-2">Удалить выбранное</v-btn>
       </v-flex>
       <v-flex xs2 text-right>
-        <v-btn tile @click="clearSelection" color="success">Снять выделение</v-btn>
+        <v-btn tile @click="clearSelection" color="success body-2">Снять выделение</v-btn>
       </v-flex>
     </v-layout>
     <csm-order-list-item

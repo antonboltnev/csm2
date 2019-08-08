@@ -1,8 +1,8 @@
 <template>
-  <div class='csm-order-edit-page'>
-    <h1 class="text-md-center">Страница редактирования заказа</h1>
+  <v-container class='csm-order-edit-page'>
+    <h1 class="text-md-center">Редактирование заказа</h1>
     <csm-order-list/>
-  </div>
+  </v-container>
 </template>
 
 <script>

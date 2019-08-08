@@ -10,6 +10,7 @@
             item-text="text"
             item-value="value"
             @change="selectChange"
+            clearable
     >
       <template v-slot:selection="{ item, index }">
         <v-chip v-if="index === 0">
