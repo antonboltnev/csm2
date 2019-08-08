@@ -3,7 +3,7 @@
     <v-layout class="order-line_content">
       <v-flex
               class="list-item_discount"
-              xs2
+              xs1
       >
         <v-btn
                 color="#fff"
@@ -61,7 +61,7 @@
                 </li>
                 <li>
                   <p class="info-text display-1">Итого со скидкой</p>
-                  <p class="info-value font-weight-bold display-1 green--text">{{totalPriceWithDiscounts + getAppliedDiscounts}} &#8381;</p>
+                  <p class="info-value font-weight-bold display-1 green--text">{{(totalPriceWithDiscounts).toFixed(0)}} &#8381;</p>
                 </li>
               </ul>
             </v-card-text>
@@ -86,7 +86,7 @@
           </v-card>
         </v-dialog>
       </v-flex>
-      <v-flex xs4>
+      <v-flex xs3>
         <span>
         <v-btn
                 x-small
@@ -110,8 +110,17 @@
         <span>{{getAppliedDiscounts + ( ((this.line_data.price - this.getAppliedDiscounts)  * (this.discountsSumm + this.correction) ) / 100)}}</span>
       </v-flex>
       <v-flex xs2>
-        <span v-if="getAppliedDiscounts > 0">{{totalPriceWithDiscounts}}</span>
+        <span v-if="getAppliedDiscounts > 0">{{totalPriceWithDiscounts.toFixed(0)}}</span>
         <span v-else>{{line_data.price*line_data.quantity}}</span>
+      </v-flex>
+      <v-flex class="line_remove" xs1>
+        <v-btn
+                @click="removeLine"
+                x-small
+                text
+        >
+          <v-icon>delete</v-icon>
+        </v-btn>
       </v-flex>
     </v-layout>
   </v-flex>
@@ -164,6 +173,9 @@
             }
         },
         methods: {
+            removeLine() {
+               this.$emit('removeLine');
+            },
             handCorrection(value) {
                 this.correction = Number(value);
             },

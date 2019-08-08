@@ -18,12 +18,12 @@
         <span>Размер: <span class="underlined">{{product_data.size}}</span></span>
         <span>Базовая цена: <span class="green--text">{{product_data.articleBasePrice}} &#8381;</span></span>
       </v-flex>
-      <v-flex class="item_lines pl-0 pr-0" xs7>
+      <v-flex class="item_lines pl-0 pr-0" xs7 v-if="product_data.orderLines.length">
         <v-layout class="column">
           <v-layout class="order-line_header font-weight-medium pt-2 pb-2">
-            <v-flex xs2>
+            <v-flex xs1>
             </v-flex>
-            <v-flex xs4>
+            <v-flex xs3>
               <span>Кол-во</span>
             </v-flex>
             <v-flex xs2>
@@ -38,12 +38,13 @@
           </v-layout>
           <v-flex class="lines_item pr-0 pl-0">
             <csm-order-line
-                    v-for="item in product_data.orderLines"
+                    v-for="(item, index) in product_data.orderLines"
                     :product="product_data"
                     :line_data="item"
                     :key="item.id"
-                    @decrementQty="decrementQty"
-                    @incrementQty="incrementQty"
+                    @decrementQty="decrementQty(index)"
+                    @incrementQty="incrementQty(index)"
+                    @removeLine="removeLine(index)"
             />
           </v-flex>
         </v-layout>
@@ -110,10 +111,14 @@
         },
         computed: {
             totalPriceWithDiscounts() {
-                return  (this.product_data.articleBasePrice * this.product_data.qty) - ((this.product_data.articleBasePrice * this.product_data.qty * (this.discountsSumm+this.correction)) / 100);
+                let summ = this.product_data.articleBasePrice * this.product_data.qty;
+                return  summ - ((summ * (this.discountsSumm+this.correction)) / 100);
             }
         },
         methods: {
+            removeLine(line) {
+                this.product_data.orderLines.splice(line, 1);
+            },
             handCorrection(value) {
                this.correction = Number(value);
             },
@@ -137,11 +142,15 @@
             productSelection() {
                     this.$emit('productSelection', this.product_data.article, this.isProductSelected);
             },
-            incrementQty() {
-                this.$emit('incrementQty');
+            incrementQty(index) {
+                this.product_data.orderLines[index].quantity++;
             },
-            decrementQty() {
-                this.$emit('decrementQty');
+            decrementQty(index) {
+                if (this.product_data.orderLines[index].quantity >1) {
+                    this.product_data.orderLines[index].quantity--;
+                } else {
+                    return false;
+                }
             },
             deleteProduct() {
                 this.$emit('deleteProduct');
