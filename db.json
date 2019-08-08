@@ -235,7 +235,7 @@
           "type": "Источник"
         }
       ],
-      "unuvailableWares": [
+      "unavailableWares": [
         {
           "moniker": "19MOT416T",
           "description": "Велосипед горный Stern Motion 4.0 27,5",
@@ -265,7 +265,7 @@
           "type": "Источник"
         }
       ],
-      "unuvailableWares": [
+      "unavailableWares": [
         {
           "moniker": "303SZ8090S",
           "description": "Джемпер мужской Kappa",
@@ -297,7 +297,7 @@
           "type": "Источник"
         }
       ],
-      "unuvailableWares": []
+      "unavailableWares": []
     },
     {
       "deliveryDate": "2019-08-08",
@@ -315,7 +315,7 @@
           "type": "Из наличия"
         }
       ],
-      "unuvailableWares": []
+      "unavailableWares": []
     },
     {
       "deliveryDate": "2019-08-10",
@@ -335,7 +335,7 @@
           "type": "Из наличия"
         }
       ],
-      "unuvailableWares": []
+      "unavailableWares": []
     }
   ]
 

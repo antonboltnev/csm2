@@ -39,7 +39,7 @@
                       outlined
               ></v-text-field>
             </v-flex>
-            <v-flex xs12 ml-2 mr-2 mt-0 mb-5>
+            <v-flex xs3 ml-2 mr-2 mt-0 mb-5>
               <v-btn min-height="54" tile @click="" color="success body-2">Отправить код</v-btn>
             </v-flex>
             <v-flex xs3 ml-2 mr-2>
