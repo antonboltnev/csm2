@@ -7,5 +7,336 @@
       "img": "https://cdn.sptmr.ru/upload/resize_cache/iblock/f40/331_394_1/18385230299.jpg", "title": "Product 2", "price": 200, "size": "L", "color": "green", "qty": "5", "price": "400" },
     { "article": 435,
       "img": "https://cdn.sptmr.ru/upload/resize_cache/iblock/c97/176_188_1/12726230299.jpg", "title": "Product 3", "price": 300, "size": "XL", "color": "blue", "qty": "3", "price": "300" }
+  ],
+
+
+  "articles": [
+    {
+      "moniker": "303SZ8090S",
+      "description": "Джемпер мужской Kappa",
+      "image": "https://cdn.sptmr.ru/upload/resize_cache/iblock/c97/176_188_1/12726230299.jpg",
+      "color": "Cиний",
+      "size": "S",
+      "articleBasePrice": 1799.0,
+      "orderLines": [
+        {
+          "id": 1,
+          "price": 1649.0,
+          "quantity": 3,
+          "assignedDiscounts": [
+            {
+              "npp": 1,
+              "valueType": "",
+              "value": "",
+              "discountType": null
+            }
+          ],
+          "appliedDiscounts": [
+            {
+              "summa": 150,
+              "discountType": 4,
+              "npp": null
+            }
+          ],
+          "specialMarkWareId": null,
+          "specialMarkWareDescr": "",
+          "recommendedShopDiscount": null
+        },
+        {
+          "id": 2,
+          "price": 1499.0,
+          "quantity": 1,
+          "assignedDiscounts": [
+            {
+              "npp": 1,
+              "valueType": "0",
+              "value": "25",
+              "discountType": 3
+            }
+          ],
+          "appliedDiscounts": [
+            {
+              "summa": 200,
+              "discountType": 3,
+              "npp": 1
+            },
+            {
+              "summa": 100,
+              "discountType": 1,
+              "npp": null
+            }
+          ],
+          "specialMarkWareId": null,
+          "specialMarkWareDescr": "",
+          "recommendedShopDiscount": null
+        }
+      ]
+    },
+    {
+      "moniker": "19MOT416T",
+      "description": "Велосипед горный Stern Motion 4.0 27,5",
+      "image": "https://cdn.sptmr.ru/upload/resize_cache/iblock/f40/331_394_1/18385230299.jpg",
+      "color": "Черный",
+      "size": "150-165",
+      "articleBasePrice": 26999.0,
+      "orderLines": [
+        {
+          "id": 1,
+          "price": 26999.0,
+          "quantity": 1,
+          "assignedDiscounts": [
+            {
+              "npp": null,
+              "valueType": "",
+              "value": "",
+              "discountType": null
+            }
+          ],
+          "appliedDiscounts": [
+            {
+              "summa": "",
+              "discountType": null,
+              "npp": null
+            }
+          ],
+          "specialMarkWareId": null,
+          "specialMarkWareDescr": "",
+          "recommendedShopDiscount": null
+        },
+        {
+          "id": 2,
+          "price": 26999.0,
+          "quantity": 1,
+          "assignedDiscounts": [
+            {
+              "npp": 1,
+              "valueType": "1",
+              "value": 1000,
+              "discountType": 3
+            }
+          ],
+          "appliedDiscounts": [
+            {
+              "summa": 500,
+              "discountType": 3,
+              "npp": 1
+            }
+          ],
+          "specialMarkWareId": null,
+          "specialMarkWareDescr": "",
+          "recommendedShopDiscount": null
+        }
+      ]
+    }
+  ],
+  "logistics": {
+    "orderReceivingType": "Доставка",
+    "consolidationPoint": 126,
+    "consolidationPointType": "shop",
+    "courierCompany": "Собственная служба доставки",
+    "consignments": [
+      {
+        "source": 126,
+        "readyDate": "2019-07-30",
+        "readyDateType": "расчетное",
+        "wares": [
+          {
+            "moniker": "303SZ8090S",
+            "quantity": 1,
+            "state": "Зарезервировано",
+            "specialMarkId": null,
+            "specialMark": null,
+            "recommendedShopDiscount": ""
+          },
+          {
+            "moniker": "303SZ8090S",
+            "quantity": 1,
+            "state": "Найдено с особенностью",
+            "specialMarkId": 111,
+            "specialMark": "Порван рукав",
+            "recommendedShopDiscountPercent": 15
+          },
+          {
+            "moniker": "19MOT416T",
+            "quantity": 1,
+            "state": "Найдено с особенностью",
+            "specialMarkId": 222,
+            "specialMark": "Отсутствует колесо",
+            "recommendedShopDiscountPercent": 25
+          }
+        ]
+      },
+      {
+        "source": 157,
+        "readyDate": "2019-08-04",
+        "readyDateType": "плановое",
+        "wares": [
+          {
+            "moniker": "303SZ8090S",
+            "quantity": 2,
+            "state": "В пути",
+            "specialMarkId": null,
+            "specialMark": null,
+            "recommendedShopDiscount": ""
+          }
+        ]
+      },
+      {
+        "source": 812,
+        "readyDate": "2019-08-06",
+        "readyDateType": "плановое",
+        "wares": [
+          {
+            "moniker": "19MOT416T",
+            "quantity": 1,
+            "state": "В пути",
+            "specialMarkId": null,
+            "specialMark": null,
+            "recommendedShopDiscount": ""
+          }
+        ]
+      }
+    ]
+  },
+  "deliveryInfo": {
+    "city": "Березовский, Свердловская область",
+    "street": "Улица Коммуны",
+    "houseNum": 4,
+    "flatNum": "38",
+    "floor": 2,
+    "deliveryDate": "2019-08-04",
+    "deliveryTime": "10:00 - 12:00",
+    "courier": "ССД для СМ РФ",
+    "deliveryCost": 249.00,
+    "freeShippingBill": 2000
+  },
+  "deliveryVariants": [
+    {
+      "deliveryDate": "2019-08-06",
+      "deliveryTimeSlots": [
+        "09:00-12:00",
+        "12:00-15:00",
+        "15:00-18:00"
+      ],
+      "deliveryCost": 500.00,
+      "prepayment": "100",
+      "placeOfConsilation": "ФРЦ 157",
+      "deliverLogistics": [
+        {
+          "source": "ФРЦ 157",
+          "date": "2019-08-04",
+          "quantity": 3,
+          "type": "Из наличия"
+        },
+        {
+          "source": "РМ 126",
+          "date": "2019-08-06",
+          "quantity": 2,
+          "type": "Источник"
+        }
+      ],
+      "unuvailableWares": [
+        {
+          "moniker": "19MOT416T",
+          "description": "Велосипед горный Stern Motion 4.0 27,5",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "deliveryDate": "2019-08-06",
+      "deliveryTimeSlots": [
+        "09:00-18:00"
+      ],
+      "deliveryCost": 500.00,
+      "prepayment": "100",
+      "placeOfConsilation": "ФРЦ 157",
+      "deliverLogistics": [
+        {
+          "source": "ФРЦ 157",
+          "date": "2019-08-04",
+          "quantity": 2,
+          "type": "Из наличия"
+        },
+        {
+          "source": "РМ 126",
+          "date": "2019-08-06",
+          "quantity": 3,
+          "type": "Источник"
+        }
+      ],
+      "unuvailableWares": [
+        {
+          "moniker": "303SZ8090S",
+          "description": "Джемпер мужской Kappa",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "deliveryDate": "2019-08-08",
+      "deliveryTimeSlots": [
+        "09:00-12:00",
+        "12:00-15:00",
+        "15:00-18:00"
+      ],
+      "deliveryCost": 249.00,
+      "prepayment": "0",
+      "placeOfConsilation": "ФРЦ 157",
+      "deliverLogistics": [
+        {
+          "source": "ФРЦ 157",
+          "date": "2019-08-04",
+          "quantity": 3,
+          "type": "Из наличия"
+        },
+        {
+          "source": "РМ 126",
+          "date": "2019-08-06",
+          "quantity": 2,
+          "type": "Источник"
+        }
+      ],
+      "unuvailableWares": []
+    },
+    {
+      "deliveryDate": "2019-08-08",
+      "deliveryTimeSlots": [
+        "09:00-18:00"
+      ],
+      "deliveryCost": 249.00,
+      "prepayment": "0",
+      "placeOfConsilation": "РМ 126",
+      "deliverLogistics": [
+        {
+          "source": "РМ 126",
+          "date": "2019-08-04",
+          "quantity": 6,
+          "type": "Из наличия"
+        }
+      ],
+      "unuvailableWares": []
+    },
+    {
+      "deliveryDate": "2019-08-10",
+      "deliveryTimeSlots": [
+        "09:00-12:00",
+        "12:00-15:00",
+        "15:00-18:00"
+      ],
+      "deliveryCost": 249.00,
+      "prepayment": "0",
+      "placeOfConsilation": "ФРЦ 157",
+      "deliverLogistics": [
+        {
+          "source": "ФРЦ 157",
+          "date": "2019-08-04",
+          "quantity": 6,
+          "type": "Из наличия"
+        }
+      ],
+      "unuvailableWares": []
+    }
   ]
+
 }

@@ -9,119 +9,45 @@
         ></v-checkbox>
       </v-flex>
       <v-flex class="list-item_img" xs2>
-        <v-img :src=product_data.img></v-img>
+        <v-img :src=product_data.image></v-img>
       </v-flex>
       <v-flex class="list-item_info" column xs3>
-        <span class="info_title">{{product_data.title}}</span>
+        <span class="info_title">{{product_data.description}}</span>
         <span>Артикул: {{product_data.article}}</span>
         <span>Цвет: <span class="underlined">{{product_data.color}}</span></span>
         <span>Размер: <span class="underlined">{{product_data.size}}</span></span>
-        <span>Цена за ед: {{product_data.price}} &#8381;</span>
+        <span>Базовая цена: <span class="green--text">{{product_data.articleBasePrice}} &#8381;</span></span>
       </v-flex>
-      <v-flex xs2>
-        <span>
-        <v-btn
-                text
-                @click="decrementQty"
-        ><v-icon dark>remove</v-icon>
-      </v-btn>
-        {{product_data.qty}} шт
-        <v-btn
-                text
-                @click="incrementQty"
-        ><v-icon dark>add</v-icon>
-        </v-btn>
-      </span>
+      <v-flex class="item_lines pl-0 pr-0" xs7>
+        <v-layout class="column">
+          <v-layout class="order-line_header font-weight-medium pt-2 pb-2">
+            <v-flex xs2>
+            </v-flex>
+            <v-flex xs4>
+              <span>Кол-во</span>
+            </v-flex>
+            <v-flex xs2>
+              <span>&#8381; / шт</span>
+            </v-flex>
+            <v-flex xs3>
+              <span>Скидка &#8381;</span>
+            </v-flex>
+            <v-flex xs2>
+              <span>Итого</span>
+            </v-flex>
+          </v-layout>
+          <v-flex class="lines_item pr-0 pl-0">
+            <csm-order-line
+                    v-for="item in product_data.orderLines"
+                    :product="product_data"
+                    :line_data="item"
+                    :key="item.id"
+                    @decrementQty="decrementQty"
+                    @incrementQty="incrementQty"
+            />
+          </v-flex>
+        </v-layout>
       </v-flex>
-      <v-flex
-              class="list-item_discount"
-              xs2
-      >
-        <v-btn
-                color="#fff"
-                @click.stop="dialog = true"
-        >
-          <span class="headline">%</span>
-        </v-btn>
-        <v-dialog
-                v-model="dialog"
-                max-width="600"
-        >
-          <v-card>
-            <v-card-title class="headline">Скидка на {{product_data.title}}</v-card-title>
-            <v-card-text>
-              <ul class="discount_modal-text">
-                <li>
-                  <p class="left-text">Базовая цена</p>
-                  <p class="text-value">{{product_data.price}} руб</p>
-                </li>
-                <li>
-                  <p class="left-text">Количество для скидки</p>
-                  <p class="text-value">3 шт</p>
-                </li>
-                <li>
-                  <v-flex>
-                    <p class="left-text">Скидка</p>
-                  </v-flex>
-                  <v-flex xs6>
-                    <div class="text-value">
-                      <csm-multi-select
-                              ref="selectedItems"
-                              :select_data="discounts"
-                              select_label="Выбрать"
-                              @selectChange="discountCounter"
-                      />
-                    </div>
-                  </v-flex>
-                </li>
-                <li>
-                  <v-flex>
-                    <p class="left-text">Ручная корректировка</p>
-                  </v-flex>
-                  <v-flex xs6>
-                    <div class="text-value">
-                      <csm-text-field
-                              ref="value"
-                              @setDiscount="handCorrection"
-                      />
-                    </div>
-                  </v-flex>
-                </li>
-                <li>
-                  <p class="info-text">Суммарная скидка</p>
-                  <p class="text-value">{{discountsSumm + correction}} %</p>
-                </li>
-                <li>
-                  <p class="info-text display-1">Итого со скидкой</p>
-                  <p class="info-value font-weight-bold display-1 green--text">{{totalPriceWithDiscounts}} &#8381;</p>
-                </li>
-              </ul>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn
-                      color="darken-1"
-                      text
-                      @click="dialog = false"
-              >
-                Применить
-              </v-btn>
-              <v-btn
-                      color="red"
-                      text
-                      @click="clearDiscounts"
-              >
-                Отменить
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-flex>
-      <v-layout column align-center>
-        <span class="info_price" v-if="discountsSumm > 0">{{totalPriceWithDiscounts}} &#8381; <span class="green--text body-1">(-{{discountsSumm + correction}} %)</span></span>
-        <span class="info_price" v-else>{{product_data.price*product_data.qty}} &#8381;</span>
-      </v-layout>
     </v-layout>
     <v-layout v-if="product_data.status === 'hidden' " class="justify-end align-center">
       <v-flex xs4>
@@ -141,12 +67,14 @@
 
     import csmMultiSelect from '../../selects/csm-multi-select'
     import csmTextField from '../../text-fields/csm-text-field'
+    import csmOrderLine from './csm-order-line'
 
     export default {
         name: "csm-order-list-item",
         components: {
             csmMultiSelect,
-            csmTextField
+            csmTextField,
+            csmOrderLine
         },
         props: {
             product_data: {
@@ -182,7 +110,7 @@
         },
         computed: {
             totalPriceWithDiscounts() {
-                return  (this.product_data.price * this.product_data.qty) - ((this.product_data.price * this.product_data.qty * (this.discountsSumm+this.correction)) / 100);
+                return  (this.product_data.articleBasePrice * this.product_data.qty) - ((this.product_data.articleBasePrice * this.product_data.qty * (this.discountsSumm+this.correction)) / 100);
             }
         },
         methods: {
@@ -284,5 +212,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .order-line_header {
+    background: #e6e6e6;
   }
 </style>

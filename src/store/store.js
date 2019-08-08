@@ -74,7 +74,7 @@ let store = new Vuex.Store({
     },
     actions: {
         getOrderListFromAPI({commit}) {
-            axios.get('http://localhost:3000/products')
+            axios.get('http://localhost:3000/articles')
                     .then(product => {
                         commit('getOrderListFromAPI', product.data);
                     });
