@@ -3,8 +3,9 @@
     <v-layout>
       <csm-navigation-drawer/>
       <v-layout wrap column>
-        <!--<csm-main-table/>-->
-        <csm-order-edit-page/>
+        <keep-alive>
+          <router-view name="content" />
+        </keep-alive>
       </v-layout>
     </v-layout>
   </v-app>
@@ -12,15 +13,11 @@
 
 <script>
 import csmNavigationDrawer from './components/csm-navigation-drawer'
-import csmMainTable from './components/csm-main-table'
-import csmOrderEditPage from './components/order-edit-page/csm-order-edit-page'
 
 export default {
   name: 'app',
   components: {
       csmNavigationDrawer,
-      csmMainTable,
-      csmOrderEditPage
   }
 }
 </script>

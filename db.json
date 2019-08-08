@@ -1,7 +1,11 @@
 {
   "products": [
-    { "article": 123, "title": "Product 1", "price": 100, "size": "M", "color": "red", "qty": "1", "price": "200" },
-    { "article": 321, "title": "Product 2", "price": 200, "size": "L", "color": "green", "qty": "5", "price": "400" },
-    { "article": 435, "title": "Product 3", "price": 300, "size": "XL", "color": "blue", "qty": "3", "price": "300" }
+    { "article": 123,
+      "img": "https://cdn.sptmr.ru/upload/resize_cache/iblock/c97/176_188_1/12726230299.jpg",
+      "title": "Product 1", "price": 100, "size": "M", "color": "red", "qty": "1", "price": "200" },
+    { "article": 321,
+      "img": "https://cdn.sptmr.ru/upload/resize_cache/iblock/f40/331_394_1/18385230299.jpg", "title": "Product 2", "price": 200, "size": "L", "color": "green", "qty": "5", "price": "400" },
+    { "article": 435,
+      "img": "https://cdn.sptmr.ru/upload/resize_cache/iblock/c97/176_188_1/12726230299.jpg", "title": "Product 3", "price": 300, "size": "XL", "color": "blue", "qty": "3", "price": "300" }
   ]
 }

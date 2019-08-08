@@ -4,8 +4,9 @@ import store from './store/store.js'
 import router from './router/router.js'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import vuetify from './plugins/vuetify';
+import VueTheMask from 'vue-the-mask'
 
-
+Vue.use(VueTheMask)
 
 Vue.config.productionTip = false
 

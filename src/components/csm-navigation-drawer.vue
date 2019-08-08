@@ -13,14 +13,14 @@
                 <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
               </v-list-item-avatar>
             </v-list-item>
-
             <v-list-item
+                    :to="{name: 'userProfile'}"
                     link
                     two-line
             >
               <v-list-item-content>
-                <v-list-item-title class="title">Ваня Иванов</v-list-item-title>
-                <v-list-item-subtitle>ваня88@gmail.com</v-list-item-subtitle>
+                  <v-list-item-title class="title">Ваня Иванов</v-list-item-title>
+                  <v-list-item-subtitle>ваня88@gmail.com</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <v-icon>mdi-menu-down</v-icon>
@@ -35,19 +35,19 @@
                 nav
                 dense
         >
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>mdi-folder</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Список товаров</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>mdi-account-multiple</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Логистика</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
+            <v-list-item link :to="{name: 'order'}">
+                <v-list-item-icon>
+                  <v-icon>mdi-folder</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Список товаров</v-list-item-title>
+            </v-list-item>
+            <v-list-item link :to="{name: 'logistic'}">
+              <v-list-item-icon>
+                <v-icon>mdi-account-multiple</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Логистика</v-list-item-title>
+            </v-list-item>
+          <v-list-item link :to="{name: 'delivery'}">
             <v-list-item-icon>
               <v-icon>mdi-star</v-icon>
             </v-list-item-icon>

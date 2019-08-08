@@ -7,7 +7,7 @@
 
 <script>
 
-  import csmOrderList from '../../components/order-edit-page/csm-order-list'
+  import csmOrderList from './csm-order-list'
 
     export default {
         name: "csm-order-edit-page",
@@ -18,7 +18,7 @@
 </script>
 
 <style>
-  .csm-order-edit-page h1 {
-    margin-bottom: 100px;
+  h1 {
+    margin: 50px 0;
   }
 </style>

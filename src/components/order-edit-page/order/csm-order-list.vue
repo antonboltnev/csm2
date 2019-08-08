@@ -26,7 +26,7 @@
 
 <script>
 
-    import csmOrderListItem from '../../components/order-edit-page/csm-order-list-item'
+    import csmOrderListItem from './csm-order-list-item'
     import {mapActions, mapGetters} from 'vuex'
 
     export default {

@@ -3,12 +3,13 @@
             class="csm-text-field"
             v-model="value"
             label="Введите значение"
+            type="tel"
             single-line
-            type="number"
             clearable
             prefix="%"
-            :rules="[rules.counter]"
             @blur="setDiscountValue"
+            min="0"
+            maxlength="2"
     ></v-text-field>
 </template>
 
@@ -17,15 +18,15 @@
         name: "csm-text-field",
         data() {
             return {
-                value: 0,
-                rules: {
-                    counter: value => value.length <= 3 || 'Очень много цыфр! Не больше 3!',
-                },
+                value: '',
             }
         },
         methods: {
             setDiscountValue() {
                 this.$emit('setDiscount',this.value);
+            },
+            clearTextField() {
+                this.value = ''
             }
         }
     }

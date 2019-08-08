@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-layout class='csm-order-list-item justify-space-around align-start' v-if="product_data.status !== 'hidden' ">
-      <v-flex>
+      <v-flex xs1>
         <v-checkbox
                 v-model="isProductSelected"
                 @change="productSelection"
@@ -9,16 +9,16 @@
         ></v-checkbox>
       </v-flex>
       <v-flex class="list-item_img" xs2>
-        <img src="https://cdn.sptmr.ru/upload/resize_cache/iblock/c97/176_188_1/12726230299.jpg" alt="Product Img 100x120">
+        <v-img :src=product_data.img></v-img>
       </v-flex>
       <v-flex class="list-item_info" column xs3>
         <span class="info_title">{{product_data.title}}</span>
         <span>Артикул: {{product_data.article}}</span>
         <span>Цвет: <span class="underlined">{{product_data.color}}</span></span>
         <span>Размер: <span class="underlined">{{product_data.size}}</span></span>
-        <span>Цена за ед: ${{product_data.price}}</span>
+        <span>Цена за ед: {{product_data.price}} &#8381;</span>
       </v-flex>
-      <v-flex>
+      <v-flex xs2>
         <span>
         <v-btn
                 text
@@ -81,6 +81,7 @@
                   <v-flex xs6>
                     <div class="text-value">
                       <csm-text-field
+                              ref="value"
                               @setDiscount="handCorrection"
                       />
                     </div>
@@ -88,11 +89,11 @@
                 </li>
                 <li>
                   <p class="info-text">Суммарная скидка</p>
-                  <p class="text-value">- {{discountsSumm}} %</p>
+                  <p class="text-value">{{discountsSumm + correction}} %</p>
                 </li>
                 <li>
                   <p class="info-text display-1">Итого со скидкой</p>
-                  <p class="info-value font-weight-bold display-1 green--text">{{totalPriceWithDiscounts}} руб</p>
+                  <p class="info-value font-weight-bold display-1 green--text">{{totalPriceWithDiscounts}} &#8381;</p>
                 </li>
               </ul>
             </v-card-text>
@@ -118,8 +119,8 @@
         </v-dialog>
       </v-flex>
       <v-layout column align-center>
-        <span class="info_price" v-if="discountsSumm > 0">${{totalPriceWithDiscounts}} <span class="green--text body-1">(- {{discountsSumm}} %)</span></span>
-        <span class="info_price" v-else>${{product_data.price*product_data.qty}}</span>
+        <span class="info_price" v-if="discountsSumm > 0">{{totalPriceWithDiscounts}} &#8381; <span class="green--text body-1">(-{{discountsSumm + correction}} %)</span></span>
+        <span class="info_price" v-else>{{product_data.price*product_data.qty}} &#8381;</span>
       </v-layout>
     </v-layout>
     <v-layout v-if="product_data.status === 'hidden' " class="justify-end align-center">
@@ -138,8 +139,8 @@
 
 <script>
 
-    import csmMultiSelect from '../../components/selects/csm-multi-select'
-    import csmTextField from '../../components/text-fields/csm-text-field'
+    import csmMultiSelect from '../../selects/csm-multi-select'
+    import csmTextField from '../../text-fields/csm-text-field'
 
     export default {
         name: "csm-order-list-item",
@@ -181,7 +182,7 @@
         },
         computed: {
             totalPriceWithDiscounts() {
-                return  (this.product_data.price * this.product_data.qty) - ((this.product_data.price * this.product_data.qty * this.discountsSumm) / 100);
+                return  (this.product_data.price * this.product_data.qty) - ((this.product_data.price * this.product_data.qty * (this.discountsSumm+this.correction)) / 100);
             }
         },
         methods: {
@@ -193,13 +194,15 @@
                     let result = discounts.reduce(function (sum, el) {
                         return sum + el;
                     });
-                    return this.discountsSumm = result + this.correction;
+                    return this.discountsSumm = result;
                 } else {
                     this.discountsSumm = 0
                 }
             },
             clearDiscounts() {
                 this.discountsSumm = 0;
+                this.correction = 0;
+                this.$refs.value.clearTextField();
                 this.$refs.selectedItems.clearSelect();
                 this.dialog = false;
             },
@@ -237,6 +240,12 @@
     border-left: 0;
     border-right: 0;
     margin-top: -1px;
+  }
+
+  .csm-order-list-item .flex {
+    border-right: solid 1px #e6e6e6;
+    padding: 0 10px;
+    height: 100%;
   }
 
   .list-item_img .v-icon {

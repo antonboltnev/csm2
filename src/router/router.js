@@ -4,8 +4,10 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-import csmTableFilters from '../components/table-inner-components/csm-table-filters'
-import csmTableBody from '../components/table-inner-components/csm-table-body'
+import csmOrderEditPage from '../components/order-edit-page/order/csm-order-edit-page'
+import csmUserInfo from '../components/order-edit-page/user/csm-user-info'
+import csmLogisticInfo from '../components/order-edit-page/logistic/csm-logistic-info'
+import csmDeliveryInfo from '../components/order-edit-page/delivery/csm-delivery-info'
 
 let router = new Router ({
     mode: 'history',
@@ -13,38 +15,34 @@ let router = new Router ({
         {
             path: '/',
             name: 'home',
-            redirect: '/tab_all',
+            redirect: '/order',
         },
         {
-            path: '/tab_all',
-            name: 'tabAll',
+            path: '/order',
+            name: 'order',
             components: {
-                tableHead: csmTableFilters,
-                tableBody: csmTableBody
+                content: csmOrderEditPage
             },
         },
         {
-            path: '/tab_escalation',
-            name: 'tabEscalation',
+            path: '/logistic',
+            name: 'logistic',
             components: {
-                tableHead: csmTableFilters,
-                tableBody: csmTableFilters
+                content: csmLogisticInfo
             },
         },
         {
-            path: '/tab_in-work',
-            name: 'tabInWork',
+            path: '/delivery',
+            name: 'delivery',
             components: {
-                tableHead: csmTableFilters,
-                tableBody: csmTableBody
+                content: csmDeliveryInfo
             },
         },
         {
-            path: '/tab_new',
-            name: 'tabNew',
+            path: '/user-profile',
+            name: 'userProfile',
             components: {
-                tableHead: csmTableFilters,
-                tableBody: csmTableBody
+                content: csmUserInfo
             },
         }
     ]
