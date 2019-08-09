@@ -3,12 +3,10 @@
             class="csm-text-field"
             v-model="value"
             label="Введите значение"
-            type="tel"
-            single-line
+            placeholder="Например: не хватает денег :)"
+            outlined
             clearable
-            @input="setDiscountValue"
-            min="0"
-            maxlength="2"
+            @input="setValue"
     ></v-text-field>
 </template>
 
@@ -21,8 +19,8 @@
             }
         },
         methods: {
-            setDiscountValue() {
-                this.$emit('setDiscount',this.value);
+            setValue() {
+                this.$emit('setValue',this.value);
             },
             clearTextField() {
                 this.value = ''

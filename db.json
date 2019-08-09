@@ -94,7 +94,7 @@
           ],
           "appliedDiscounts": [
             {
-              "summa": "",
+              "summa": 0,
               "discountType": null,
               "npp": null
             }

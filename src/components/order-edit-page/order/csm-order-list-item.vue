@@ -65,16 +65,11 @@
 </template>
 
 <script>
-
-    import csmMultiSelect from '../../selects/csm-multi-select'
-    import csmTextField from '../../text-fields/csm-text-field'
     import csmOrderLine from './csm-order-line'
 
     export default {
         name: "csm-order-list-item",
         components: {
-            csmMultiSelect,
-            csmTextField,
             csmOrderLine
         },
         props: {

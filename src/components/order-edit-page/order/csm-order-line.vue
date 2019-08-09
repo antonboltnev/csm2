@@ -2,17 +2,61 @@
   <v-flex class='csm-order-line mt-2 mb-2 pl-0 pr-0'>
     <v-layout class="order-line_content">
       <v-flex
+              class="list-item_quantity-modal"
+              xs1
+      >
+        <v-dialog
+                v-model="quantityModal"
+                max-width="600"
+        >
+          <v-card>
+            <v-card-title class="headline">Укажите причину уменьшения количества товара</v-card-title>
+            <v-spacer></v-spacer>
+            <v-card-text>
+              <csm-text-field
+                      class="body-2"
+                      placeholder="Например: денег нет у клиента..."
+                      @setValue="getQuantityModalInputValue"
+                      outlined
+              ></csm-text-field>
+              <v-spacer></v-spacer>
+              <csm-single-select
+                      @selectValue="getQuantityModalSelectValue"
+              />
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn
+                      color="darken-1"
+                      text
+                      @click="quantityModalReasonSelected"
+              >
+                Применить
+              </v-btn>
+              <v-btn
+                      color="red"
+                      text
+                      @click="quantityModal = false"
+              >
+                Отменить
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-flex>
+      <v-flex
               class="list-item_discount"
               xs1
       >
         <v-btn
-                @click.stop="dialog = true"
-                :color="applyDiscount ?  'success' : '' "
+                @click.stop="discountModal = true"
+                :color=" applyDiscount ?  'success' : '' "
         >
           <span class="headline">%</span>
         </v-btn>
         <v-dialog
-                v-model="dialog"
+                v-model="discountModal"
                 max-width="600"
         >
           <v-card>
@@ -50,7 +94,7 @@
                     <div class="text-value">
                       <csm-text-field
                               ref="value"
-                              @setDiscount="handCorrection"
+                              @setValue="handCorrection"
                       />
                     </div>
                   </v-flex>
@@ -71,7 +115,7 @@
               <v-btn
                       color="darken-1"
                       text
-                      @click="dialog = false"
+                      @click="discountModal = false"
               >
                 Применить
               </v-btn>
@@ -107,7 +151,7 @@
         <span>{{pricePerItem | formattedPrice}}</span>
       </v-flex>
       <v-flex class="line_discount" xs3>
-        <span>{{(getAppliedDiscounts + ( ((this.line_data.price - this.getAppliedDiscounts)  * (this.discountsSumm + this.correction) ) / 100)) | formattedPrice}}</span>
+        <span>{{(getAppliedDiscounts + ( ((this.line_data.price - this.getAppliedDiscounts)  * (this.discountsSumm + this.correction) ) / 100)).toFixed(0) | formattedPrice}}</span>
       </v-flex>
       <v-flex xs2>
         <span>{{totalPriceWithDiscounts | formattedPrice}}</span>
@@ -127,12 +171,14 @@
 
 <script>
     import csmMultiSelect from '../../selects/csm-multi-select'
+    import csmSingleSelect from '../../selects/csm-single-select'
     import csmTextField from '../../text-fields/csm-text-field'
 
     export default {
         name: "csm-order-line",
         components: {
             csmMultiSelect,
+            csmSingleSelect,
             csmTextField
         },
         props: {
@@ -151,7 +197,11 @@
         },
         data() {
             return {
-                dialog: false,
+                discountModal: false,
+                quantityModal: false,
+                quantityModalSelectValue: '',
+                quantityModalInputValue: '',
+                isQuantityModalReasonSelected: false,
                 discounts: [
                     {text: 'За лояльность, 10%', value: 10},
                     {text: 'За вредность, 15%', value: 15}
@@ -178,15 +228,31 @@
             },
             totalPriceWithDiscounts() {
                 let discnt = (this.line_data.price - this.getAppliedDiscounts) * this.line_data.quantity;
-                return (discnt - ( discnt * (this.discountsSumm + this.correction) ) / 100).toFixed(1);
+                return (discnt - ( discnt * (this.discountsSumm + this.correction) ) / 100).toFixed(0);
             },
             applyDiscount() {
-                if (!this.dialog) {
+                if (!this.discountModal) {
                     return (this.discountsSumm || this.correction) !== 0;
                 }
             }
         },
         methods: {
+            getQuantityModalInputValue(inputValue) {
+                this.quantityModalInputValue = inputValue;
+            },
+            getQuantityModalSelectValue(selectValue) {
+                this.quantityModalSelectValue = selectValue;
+            },
+            quantityModalReasonSelected() {
+                if (this.quantityModalInputValue && this.quantityModalSelectValue) {
+                    this.isQuantityModalReasonSelected = true;
+                    this.quantityModal = false;
+                    this.$emit('decrementQty');
+                } else {
+
+                    return false;
+                }
+            },
             removeLine() {
                this.$emit('removeLine');
             },
@@ -208,13 +274,13 @@
                 this.correction = 0;
                 this.$refs.value.clearTextField();
                 this.$refs.selectedItems.clearSelect();
-                this.dialog = false;
+                this.discountModal = false;
             },
             incrementQty() {
                 this.$emit('incrementQty');
             },
             decrementQty() {
-                this.$emit('decrementQty');
+                    this.quantityModal = true;
             },
         }
     }
